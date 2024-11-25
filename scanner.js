@@ -10,10 +10,11 @@
     const videoDevices = devices.filter(device => device.kind === 'videoinput');
 
     if (videoDevices.length === 0) {
-      throw new Error('No video input devices found');
+      output.textContent = "No video input devices found.";
+      return;
     }
 
-    // 嘗試選擇後置攝像頭
+    // 選擇後置攝像頭（如可用）
     const backCamera = videoDevices.find(device => device.label.toLowerCase().includes('back')) || videoDevices[0];
 
     const stream = await navigator.mediaDevices.getUserMedia({
@@ -40,10 +41,9 @@
       const code = jsQR(imageData.data, canvas.width, canvas.height);
 
       if (code) {
-        output.textContent = `QR Code: ${code.data}`;
-        console.log('QR Code Found:', code.data);
+        output.textContent = `QR Code: ${code.data}`; // 顯示 QR Code 資訊
       } else {
-        output.textContent = 'Scanning...';
+        output.textContent = "Scanning..."; // 顯示掃描中的狀態
       }
 
       requestAnimationFrame(scanQRCode); // 重複執行掃描
@@ -51,7 +51,6 @@
 
     scanQRCode();
   } catch (error) {
-    console.error('Error accessing camera:', error);
     output.textContent = `Unable to access camera: ${error.name}`;
   }
 })();

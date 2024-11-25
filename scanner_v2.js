@@ -24,10 +24,21 @@
     video.srcObject = stream;
 
     // 等待相機畫面加載
-    video.onloadedmetadata = () => video.play();
+    video.onloadedmetadata = () => {
+      video.play();
+      canvas.width = video.videoWidth;  // 設定 canvas 寬度
+      canvas.height = video.videoHeight;  // 設定 canvas 高度
+    };
 
     // 持續掃描 QR Code
     function scanQRCode() {
+      if (!video.videoWidth || !video.videoHeight) {
+        // 確保視頻已加載
+        requestAnimationFrame(scanQRCode);
+        return;
+      }
+
+      // 更新 canvas 大小
       canvas.width = video.videoWidth;
       canvas.height = video.videoHeight;
 
@@ -41,16 +52,17 @@
       const code = jsQR(imageData.data, canvas.width, canvas.height);
 
       if (code) {
-        output.textContent = `QR Code: ${code.data}`; // 顯示 QR Code 資訊
+        output.textContent = `QR Code: ${code.data}`;  // 顯示 QR Code 資訊
       } else {
-        output.textContent = "Scanning..."; // 顯示掃描中的狀態
+        output.textContent = "Scanning...";  // 顯示掃描中的狀態
       }
 
-      requestAnimationFrame(scanQRCode); // 重複執行掃描
+      requestAnimationFrame(scanQRCode);  // 重複執行掃描
     }
 
     scanQRCode();
   } catch (error) {
     output.textContent = `Unable to access camera: ${error.name}`;
+    console.error('Error accessing camera:', error);
   }
 })();

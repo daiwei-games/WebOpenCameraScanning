@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>開啟鏡頭</title>
+  </head>
+  <body>
+    <!-- <input type="file" capture="environment" accept="video/*"/>
+    <input type="file" capture="environment" accept="image/*"/> -->
+    <h1>QR Code Scanner</h1>
+    <video id="video" autoplay playsinline style="width: 100%;"></video>
+    <canvas id="canvas" style="display: none;"></canvas>
+    <p id="output">Scanning...</p>
+    <script src="https://cdn.jsdelivr.net/npm/jsqr/dist/jsQR.js"></script>
+    <script src="qrcode-scanner.js"></script>
+  </body>
+</html>

@@ -18,7 +18,8 @@
     const backCamera = videoDevices.find(device => device.label.toLowerCase().includes('back')) || videoDevices[0];
 
     const stream = await navigator.mediaDevices.getUserMedia({
-      video: { deviceId: { exact: backCamera.deviceId } }
+      //video: { deviceId: { exact: backCamera.deviceId } }
+      video: { facingMode: 'environment' }
     });
 
     video.srcObject = stream;

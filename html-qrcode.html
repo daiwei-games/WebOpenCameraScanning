@@ -7,8 +7,9 @@
     <script src="html5-qrcode.min.js"></script>
     <style>
       #reader {
-        border: 2px solid #000;
-        margin: 20px auto;
+        outline: 2px solid #000;
+        margin: auto;
+        overflow: hidden;
       }
       #output {
         margin-top: 10px;
@@ -19,7 +20,7 @@
   </head>
   <body>
     <h1>QR Code Scanner (html5-qrcode)</h1>
-    <div id="reader" style="width: 300px; height: 300px"></div>
+    <div id="reader" style="width: 320px; height: 320px"></div>
     <div id="output"></div>
   </body>
 </html>
@@ -30,7 +31,7 @@
 
     const config = {
       fps: 10, // 每秒幀數，設置為 10 提高性能
-      qrbox: { width: 250, height: 250 }, // 掃描區域大小
+      qrbox: { width: 300, height: 300 }, // 掃描區域大小
     };
 
     try {

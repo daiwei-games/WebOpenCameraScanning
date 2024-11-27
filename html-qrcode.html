@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>使用html-qrcode框架</title>
+    <script src="html5-qrcode.min.js"></script>
+    <style>
+      #reader {
+        border: 2px solid #000;
+        margin: 20px auto;
+      }
+      #output {
+        margin-top: 10px;
+        font-size: 16px;
+        color: green;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>QR Code Scanner (html5-qrcode)</h1>
+    <div id="reader" style="width: 300px; height: 300px"></div>
+    <div id="output"></div>
+  </body>
+</html>
+<script>
+  document.addEventListener("DOMContentLoaded", async () => {
+    const output = document.getElementById("output");
+    const html5QrCode = new Html5Qrcode("reader");
+
+    const config = {
+      fps: 10, // 每秒幀數，設置為 10 提高性能
+      qrbox: { width: 250, height: 250 }, // 掃描區域大小
+    };
+
+    try {
+      // 使用後置相機掃描 QR Code
+      await html5QrCode.start(
+        { facingMode: "environment" }, // 優先後置相機
+        config,
+        (decodedText) => {
+          // 成功掃描到 QR Code
+          output.textContent = `QR Code: ${decodedText}`;
+          html5QrCode.stop(); // 停止掃描（根據需要）
+        },
+        (errorMessage) => {
+          // 錯誤處理（例如沒有檢測到 QR Code）
+          console.warn(`Scanning error: ${errorMessage}`);
+        }
+      );
+    } catch (error) {
+      console.error("Unable to start QR Code scanning:", error);
+      output.textContent = `Error: ${error.message}`;
+    }
+  });
+</script>

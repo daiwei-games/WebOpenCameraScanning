@@ -1,14 +1,19 @@
 let OpenQRCodeButton = document.querySelector("#OpenQRCode");
-const html5QrCode = new Html5Qrcode("reader"); //相機框的div，顯示畫面
 const output = document.getElementById("output"); //顯示訊息div
+
+const html5QrCode = new Html5Qrcode("reader"); //相機框的div，顯示畫面
 
 const config = {
   fps: 10, // 每秒幀數，設置為 10 提高性能
   qrbox: { width: 300, height: 300 }, // 掃描區域大小
 };
 
+
+let aaa =123;
 let IfString = document.getElementById("cname"); //被比較的字串
 window.addEventListener("load", () => {
+
+
   OpenQRCodeButton.disabled = false; //網頁Loading完成再開放按鈕
   OpenQRCodeButton.onclick = () => {
     //賦予按鈕可以打開鏡頭
@@ -55,3 +60,6 @@ async function ActionQRCodeCamera() {
     })()}`;
   }
 }
+
+
+
